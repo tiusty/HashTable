@@ -17,13 +17,42 @@ HashTable::HashTable(int tableLength) {
 // returns the location of the word in the hashtable
 int HashTable::hash( string itemKey)
 {
+	/*
 	int value=0;
 	for(unsigned int i=0; i<itemKey.length(); i++)
 	{
 		value += itemKey[i];
 		return (value * itemKey.length()) % length;
 	}
-	return value;
+	return value;*/
+	/*
+	unsigned long int FNV_offset_basis = 2166136261u;
+	unsigned int hash = FNV_offset_basis;
+	unsigned long int FNV_prime = 16777619u;
+	for(std::string::const_iterator it = itemKey.begin(), end = itemKey.end(); it !=end; ++it)
+	{
+		hash = hash xor *it;
+		hash = hash * FNV_prime;
+	}
+	return hash;*/
+	/*
+	unsigned long int FNV_offset_basis = 2166136261u;
+	unsigned int hash = FNV_offset_basis;
+	unsigned long int FNV_prime = 16777619u;
+	for( int i=0; i< itemKey.length();i++)
+	{
+		hash = hash xor itemKey[i];
+		hash = hash * FNV_prime;
+	}
+	cout << hash << endl;
+	return hash;*/
+	unsigned int hash = 0;
+	unsigned int M=31;
+	for(unsigned int i=0; i<itemKey.length(); i++)
+	{
+		hash = M * hash + itemKey[i];
+	}
+	return hash % length;
 }
 
 //Add an item to the hash table
